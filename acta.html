@@ -19,7 +19,9 @@
       <div id="app">
         <div class="columna">
             <div class="contenido-columna" :class="{ 'desactivado': mostrarModal || mostrarModalGols }">
-              <h2>Titulars</h2>
+              <div class = "tituloActa">
+               <h2>Titulars</h2> 
+              </div>
               <table>
                 <tbody>
                   <tr v-for="jugadora in titularsLocal" :key="jugadora.dorsal">
@@ -31,7 +33,9 @@
                   </tr>
                 </tbody>
               </table>
-              <h2>Suplents</h2>
+              <div class = "tituloActa">
+               <h2>Suplents</h2> 
+              </div> 
               <table>
                 <tbody>
                   <tr v-for="jugadora in suplentsLocal" :key="jugadora.dorsal">
@@ -43,7 +47,9 @@
                   </tr>
                 </tbody>
               </table>
-              <button @click="mostrarFormulari('local')">Afegir alineació local</button>
+              <from id = "afegir">
+                <button type="submit" title = "Afegir alineació local" name = "Afegir" @click="mostrarFormulari('local')">Afegir alineació local</button>
+              </from>
             </div>
           </div>
           
@@ -104,7 +110,9 @@
           <td v-if="gol.equip === 'visitant'">{{ visitant }}</td>
         </tr>
       </table>
-      <button @click="mostrarFormulariGols">Afegir gols</button>
+      <from id = "afegir">
+        <button type="submit" title = "Afegir gols" name = "Afegir" @click="mostrarFormulariGols">Afegir gols</button>
+      </from>
     </div>
   </div>
           
@@ -134,16 +142,12 @@
                       </tr>
                     </tbody>
                   </table>
-                  <button @click="mostrarFormulari('visitant')">Afegir alineació visitant</button>
+                  <from id = "afegir">
+                    <button type="submit" title = "Afegir alineació visitant" name = "Afegir" @click="mostrarFormulari('visitant')">Afegir alineació visitant</button>
+                  </from>
             </div>
         </div>
-      </div>
-      
-      
-      
-      
-    
-      
+      </div>   
     
   </body>
 </html>
