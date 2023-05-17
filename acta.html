@@ -69,44 +69,56 @@
               <button @click="tancarFormulari">Cancelar</button>
           </div>
         </div>
-
         <div v-if="mostrarModalGols">
-    <div class="contenido-columna">
-      <h2>Afegir gols</h2>
-      <form class="formulari" @submit.prevent="afegirGols">
-        <div v-for="(jugadora, index) in jugadores" :key="index" class="fila-formulario">
-          <label for="equip">Equip:</label>
-          <select id="equip" v-model="jugadora.equip">
-            <option>Local</option>
-            <option>Visitant</option>
-          </select>
-          <label :for="'nom-gol-' + index">Nom:</label>
-          <input :id="'nom-gol-' + index" type="text" v-model="jugadora.nom">
-          <label :for="'minut-gol-' + index">Minut:</label>
-          <input :id="'minut-gol-' + index" type="number" v-model="jugadora.minut">
-        </div>
-        <button type="submit">Guardar</button>
-      </form>
-      <button @click="tancarFormulari">Cancelar</button>
-    </div>
-  </div>
-  <div class="columna">
-    <div class="contenido-columna" :class="{ 'desactivado': mostrarModal || mostrarModalGols }">
-        <table>
-        <tr>
-          <th>{{ local }}</th>
-          <th>Gols</th>
-          <th>{{ visitant }}</th>
-        </tr>
-        <tr v-for="(gol, index) in gols" :key="index">
-          <td v-if="gol.equip === 'local'">{{ local }}</td>
-          <td>{{ index + 1 }}</td>
-          <td v-if="gol.equip === 'visitant'">{{ visitant }}</td>
-        </tr>
-      </table>
-      <button @click="mostrarFormulariGols">Afegir gols</button>
-    </div>
-  </div>
+            <div class="contenido-columna">
+              <h2>Afegir gols</h2>
+              <form class="formulari" @submit.prevent="afegirGols">
+                <div v-for="(gol, index) in gols" :key="index" class="fila-formulario">
+                  <label for="equip">Equip:</label>
+                  <select id="equip" v-model="gol.equip">
+                    <option>Local</option>
+                    <option>Visitant</option>
+                  </select>
+                  <label :for="'nom-gol-' + index">Nom:</label>
+                  <input :id="'nom-gol-' + index" type="text" v-model="gol.nom">
+                  <label :for="'minut-gol-' + index">Minut:</label>
+                  <input :id="'minut-gol-' + index" type="number" v-model="gol.minut" min="1" max="90">
+                </div>
+                </div>
+                <button type="submit">Guardar</button>
+              </form>
+              <button @click="tancarFormulariGols">Cancelar</button>
+            </div>
+          </div>
+          <div class="columna">
+            <div class="contenido-columna" :class="{ 'desactivado': mostrarModal || mostrarModalGols }">
+                <h2>Gols</h2>
+                <table>
+                    <thead>
+                      <tr>
+                        <th>Local</th>
+                        <th>Visitant</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="(gol, index) in golsLocal" :key="index">
+                        <td>{{ gol.nom }} ({{ gol.minut }}')</td>
+                        <td></td>
+                      </tr>
+                      <tr v-for="(gol, index) in golsVisitant" :key="index">
+                        <td></td>
+                        <td>{{ gol.nom }} ({{ gol.minut }}')</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  
+              <button @click="mostrarFormulariGols">Afegir gols</button>
+            </div>
+          </div>
+          
+          
+          
+          
           
           <div class="columna">
             <div class="contenido-columna" :class="{ 'desactivado': mostrarModal || mostrarModalGols }">

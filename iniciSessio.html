@@ -38,25 +38,28 @@
         <a class="nav-link" href="#">Jugadores</a>
         <a class="nav-link" href="#">Estadístiques</a>
         <a class="nav-link" href="#">Sancions</a>
-        <a class="nav-link" href="#">Iniciar sessió</a>
+        <a class="nav-link" href="iniciSessio.html">Iniciar sessió</a>
       </div>
     </div>
     <div id="app">
-      <h2>Dades d'accés</h2>
-      <div>
-        <form class="formulari" @submit.prevent="login">
-          <div>
-            <label for="id">ID àrbitre:</label>
-            <input type="text" class="form-control" id="id" v-model="id" required>
-          </div>
-          <div>
-            <label for="contrassenya">Contrasenya:</label>
-            <input type="password" class="form-control" id="contrassenya" v-model="contrassenya" required>
-          </div>
-          <div v-if="error" style="color: red; margin-top: 10px;">{{ error }}</div>
-          <button type="submit" class="btn btn-primary">Iniciar sessió</button>
-        </form>
-      </div>
+        <div id = "contenedor">
+            <div id = "central">
+              <div id = "login">
+                <div class = "titulo">
+                  Dades d'accés
+                </div>
+                <form id = "login"  @submit.prevent="login">
+                  <input type = "text" name = "usuari" placeholder="Usuari" v-model="id" required>
+                  <input type="password" placeholder="Contrasenya" name="password" v-model="contrassenya" required>
+                  <button type="submit" title="Ingresar" name="Ingresar">Login</button>
+                </form>
+                <div v-if="error" style="color: rgb(255, 255, 255); margin-top: 10px;">{{ error }}</div>
+              </div>
+              <div class = "inferior">
+                <a href="#">Tornar</a>
+              </div>
+            </div>
+      </body>
     </div>
   </body>
 </html>

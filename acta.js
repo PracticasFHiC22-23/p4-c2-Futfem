@@ -2,14 +2,16 @@ const app = Vue.createApp({
     data() {
       return {
         jugadores: Array(23).fill().map(() => ({ dorsal: null, nom: null,groga:false,segonaGroga:false,vermella:false })),
-        titularsLocal: [],
-        suplentsLocal: [],
-        titularsVisitant: [],
-        suplentsVisitant:[],
-        mostrarModal: false,
-        equipSeleccionat: '',
-        gols:[],
-        mostrarModalGols: false
+    titularsLocal: [],
+    suplentsLocal: [],
+    titularsVisitant: [],
+    suplentsVisitant:[],
+    mostrarModal: false,
+    equipSeleccionat: '',
+    golsLocal: [],
+    golsVisitant: [],
+    mostrarModalGols: false,
+    gols:[]
 
       };
     },
@@ -37,7 +39,6 @@ const app = Vue.createApp({
       
       mostrarFormulariGols() {
         this.mostrarModalGols = true;
-        // Restaurar els valors del formulari de gols
         this.gols = [
           {
             equip: '',
@@ -46,7 +47,24 @@ const app = Vue.createApp({
           }
         ];
       },
+      afegirGols() {
+        const golsAfegitsLocal = this.gols.filter(gol => gol.equip === 'Local' && gol.nom !== '' && gol.minut !== '');
+        const golsAfegitsVisitant = this.gols.filter(gol => gol.equip === 'Visitant' && gol.nom !== '' && gol.minut !== '');
       
+        this.golsLocal.push(...golsAfegitsLocal);
+        this.golsVisitant.push(...golsAfegitsVisitant);
+      
+        this.golsLocal.sort((a, b) => parseInt(a.minut) - parseInt(b.minut));
+        this.golsVisitant.sort((a, b) => parseInt(a.minut) - parseInt(b.minut));
+      
+        this.tancarFormulariGols();
+      },
+      
+      
+      tancarFormulariGols() {
+        this.mostrarModalGols = false;
+      },
+
   
     }
   });

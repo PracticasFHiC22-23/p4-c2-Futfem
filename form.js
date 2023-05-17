@@ -2,9 +2,9 @@ const app = Vue.createApp({
     data() {
       return {
         usuaris: [
-          { id: "Gat1", contrassenya: "contrasenya1" },
-          { id: "Gat2", contrassenya: "contrasenya2" },
-          { id: "Gat3", contrassenya: "contrasenya3" }
+          { id: "1", contrassenya: "a" },
+          { id: "2", contrassenya: "b" },
+          { id: "3", contrassenya: "c" }
         ],
         id: "",
         contrassenya: "",
