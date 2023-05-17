@@ -41,23 +41,24 @@
         <a class="nav-link" href="#">Iniciar sessió</a>
       </div>
     </div>
-    <div id="app">
-      <h2>Dades d'accés</h2>
-      <div>
-        <form class="formulari" @submit.prevent="login">
-          <div>
-            <label for="id">ID àrbitre:</label>
-            <input type="text" class="form-control" id="id" v-model="id" required>
-          </div>
-          <div>
-            <label for="contrassenya">Contrasenya:</label>
-            <input type="password" class="form-control" id="contrassenya" v-model="contrassenya" required>
-          </div>
-          <div v-if="error" style="color: red; margin-top: 10px;">{{ error }}</div>
-          <button type="submit" class="btn btn-primary">Iniciar sessió</button>
-        </form>
-      </div>
-    </div>
+      <body>
+        <div id = "contenedor">
+            <div id = "central">
+              <div id = "login">
+                <div class = "titulo">
+                  Dades d'accés
+                </div>
+                <form id = "login">
+                  <input type = "text" name = "usuari" placeholder="Usuari" required>
+                  <input type="password" placeholder="Contrasenya" name="password" required>
+                  <button type="submit" title="Ingresar" name="Ingresar">Login</button>
+                </form>
+              </div>
+              <div class = "inferior">
+                <a href="#">Tornar</a>
+              </div>
+            </div>
+      </body>
   </body>
 </html>
 
