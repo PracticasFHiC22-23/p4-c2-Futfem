@@ -3,46 +3,230 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-
-    BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/vue@next"></script>
     <link href="style.css" rel="stylesheet">
-    <script src="https://unpkg.com/vue@3.2.0/dist/vue.global.prod.js"></script>
-    <script src="form.js" defer></script>
+    <script src="acta.js" defer></script>
     <title>Futfem</title>
   </head>
   <body>
-    <header>
-        <img src="escuts/logo.png" style="width: 30vh;">
-        <img src="escuts/Deportivo Alaves.png" style="max-width: 8vh;">
-        <img src="escuts/Alhama el pozo.png" style="max-width: 10vh;">
-        <img src="escuts/athletic-femenino.png" style="max-width:10vh;">
-        <img src="escuts/atletico-feminas.png" style="max-width: 10vh;">
-        <img src="escuts/fc-barcelona-femenino.png" style="max-width: 10vh;">
-        <img src="escuts/betis.png" style="max-width: 10vh;">
-        <img src="escuts/granadilla.png" style="max-width: 10vh;">
-        <img src="escuts/levante las planas.png" style="max-width: 10vh;">
-        <img src="escuts/levante-femenino.png" style="width: 10vh;">
-        <img src="escuts/madrid-futbol-femenino.png" style="width: 10vh;">
-        <img src="escuts/real-madrid.png" style="width: 10vh;">
-        <img src="escuts/real-sociedad.png" style="width: 10vh;">
-        <img src="escuts/sevilla.png" style="width: 10vh;">
-        <img src="escuts/sporting-club.png" style="width: 10vh;">
-        <img src="escuts/valencia-femenino.png" style="width: 10vh;">
-        <img src="escuts/villarreal.png" style="width: 10vh;">
-    </header>
-    <div class="container-fluid">
-      <div class="navbar">
-        <a href="index.html">Inici</a>
-        <a class="nav-link" href="#">Classificació</a>
-        <a class="nav-link" href="#">Resultats</a>
-        <a class="nav-link" href="#">Jugadores</a>
-        <a class="nav-link" href="#">Estadístiques</a>
-        <a class="nav-link" href="#">Sancions</a>
-        <a class="nav-link" href="#">Iniciar sessió</a>
+    <div id="app">
+      <div v-if="mostrarModalActa">
+        <header>
+          <h1><img :src="escutLocal" style="max-width: 10vh;"> {{ local }} - {{ visitant }}<img :src="escutVisitant" style="max-width: 10vh;"></h1>
+            <p>Jornada: {{ jornada }}</p>
+            <p>Data: {{ data }}</p>
+            <p>Estadi: {{ camp }}</p>
+            <p>TV: {{ tv }}</p>
+        </header>
+            <div class="columna">
+                <div class="contenido-columna" :class="{ 'desactivado': mostrarModal || mostrarModalGols }">
+                  <div class = "tituloActa">
+                   <h2>Titulars</h2> 
+                  </div>
+                  <table>
+                    <tbody>
+                      <tr v-for="jugadora in titularsLocal" :key="jugadora.dorsal">
+                        <td>{{ jugadora.dorsal }}</td>
+                        <td>{{ jugadora.nom }}</td>
+                        <td><img v-if="jugadora.groga" src="groga.png" alt="Groga"></td>
+                        <td><img v-if="jugadora.segonaGroga" src="segonaGroga.png" style="height: 5vh;" alt="segonaGroga"></td>
+                        <td><img v-if="jugadora.vermella" src="vermella.png" alt="Vermella"></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div class = "tituloActa">
+                   <h2>Suplents</h2> 
+                  </div> 
+                  <table>
+                    <tbody>
+                      <tr v-for="jugadora in suplentsLocal" :key="jugadora.dorsal">
+                        <td>{{ jugadora.dorsal }}</td>
+                        <td>{{ jugadora.nom }}</td>
+                        <td><img v-if="jugadora.groga" src="groga.png" alt="Groga"></td>
+                        <td><img v-if="jugadora.segonaGroga" src="segonaGroga.png" style="height: 5vh;" alt="segonaGroga"></td>
+                        <td><img v-if="jugadora.vermella" src="vermella.png" alt="Vermella"></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <from id = "afegir">
+                    <button type="submit" title = "Afegir alineació local" name = "Afegir" @click="mostrarFormulari('local')">Afegir alineació local</button>
+                  </from>
+                </div>
+              </div>
+              <div v-if="mostrarModal">
+                <div id="contenedor">
+                  <div id="central" style="width: 100vh;">
+                    <div id="login">
+                      <div class="titulo">Afegir jugadores</div>
+                      <form id="login" @submit.prevent="afegirJugadora">
+                        <div v-for="(jugadora, index) in jugadores" :key="index" class="fila">
+                          <div class="columna">
+                            <input style="margin-top: 4vh;" type="text" name="dorsal" placeholder="Dorsal" v-model="jugadora.dorsal" required>
+                          </div>
+                          <div class="columna">
+                            <input style="margin-top: 4vh;" type="text" name="nom" placeholder="Nom" v-model="jugadora.nom" required>
+                          </div>
+                          <div class="columna">
+                            <label>
+                              Groga
+                              <input style="margin-right: 6vh;" type="checkbox" name="groga" v-model="jugadora.groga">
+                            </label>
+                            <label>
+                              2ª Groga
+                              <input style="margin-right: 6vh;" type="checkbox" name="segon-groga" v-model="jugadora.segonaGroga">
+                            </label>
+                            <label>
+                              Vermella
+                              <input style="margin-right: 6vh;" type="checkbox" name="vermella" v-model="jugadora.vermella">
+                            </label>
+                          </div>
+                        </div>
+                        <button type="submit">Guardar</button>
+                        <button @click="tancarFormulari">Cancelar</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div v-if="mostrarModalGols">
+                <div id="contenedor">
+                  <div id="central">
+                    <div id="login">
+                      <div class="titulo">
+                        Afegir Gols
+                      </div>
+                      <form id="login" @submit.prevent="afegirGols">
+                        <div v-for="(gol, index) in gols" :key="index">
+                          <div class="columna">
+                            <select id="equip" v-model="gol.equip">
+                              <option value="" selected hidden>Equip</option>
+                              <option>Local</option>
+                              <option>Visitant</option>
+                            </select>
+                          </div>
+                          <div class="columna">
+                            <input type="text" id="nom" name="nom" placeholder="Nom" v-model="gol.nom" required>
+                          </div>
+                          <div class="columna">
+                            <input type="text" id="minut" name="minut" placeholder="Minut" v-model="gol.minut" min="1" max="90" required>
+                          </div>
+                        </div>
+                        <button type="submit">Guardar</button>
+                        <button @click="tancarFormulariGols">Cancelar</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="columna">
+                <div class="contenido-columna" :class="{ 'desactivado': mostrarModal || mostrarModalGols }">
+                  <h2>Àrbitra</h2>
+                    {{arbitre}}
+                    <h2>Gols</h2>
+                    <table v-if="golsLocal.length > 0 || golsVisitant.length > 0">
+                      <thead>
+                        <tr>
+                          <th v-if="golsLocal.length > 0">Local</th>
+                          <th v-if="golsVisitant.length > 0">Visitant</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr v-if="golsLocal.length > 0 || golsVisitant.length > 0" v-for="(gol, index) in golsLocal" :key="index">
+                          <td>{{ gol.nom }} ({{ gol.minut }}')</td>
+                          <td v-if="golsVisitant.length > 0"></td>
+                        </tr>
+                        <tr v-if="golsLocal.length > 0 || golsVisitant.length > 0" v-for="(gol, index) in golsVisitant" :key="index">
+                          <td v-if="golsLocal.length > 0"></td>
+                          <td>{{ gol.nom }} ({{ gol.minut }}')</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    
+                      <from id = "afegir">
+                        <button @click="mostrarFormulariGols">Afegir gols</button>
+                      </from>
+                </div>
+              </div>          
+              <div class="columna">
+                <div class="contenido-columna" :class="{ 'desactivado': mostrarModal || mostrarModalGols }">
+                    <h2>Titulars</h2>
+                    <table>
+                        <tbody>
+                          <tr v-for="jugadora in titularsVisitant" :key="jugadora.dorsal">
+                            <td>{{ jugadora.dorsal }}</td>
+                            <td>{{ jugadora.nom }}</td>
+                            <td><img v-if="jugadora.groga" src="groga.png" alt="Groga"></td>
+                            <td><img v-if="jugadora.segonaGroga" src="segonaGroga.png" style="height: 5vh;" alt="segonaGroga"></td>
+                            <td><img v-if="jugadora.vermella" src="vermella.png" alt="Vermella"></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <h2>Suplents</h2>
+                      <table>
+                        <tbody>
+                          <tr v-for="jugadora in suplentsVisitant" :key="jugadora.dorsal">
+                            <td>{{ jugadora.dorsal }}</td>
+                            <td>{{ jugadora.nom }}</td>
+                            <td><img v-if="jugadora.groga" src="groga.png" alt="Groga"></td>
+                            <td><img v-if="jugadora.segonaGroga" src="segonaGroga.png" style="height: 5vh;" alt="segonaGroga"></td>
+                            <td><img v-if="jugadora.vermella" src="vermella.png" alt="Vermella"></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <from id = "afegir">
+                        <button type="submit" title = "Afegir alineació visitant" name = "Afegir" @click="mostrarFormulari('visitant')">Afegir alineació visitant</button>
+                      </from>
+                      <div class = "inferior">
+                        <a href="arbitre.html">Tornar</a>
+                      </div>
+                </div>
+            </div>
+      </div> 
+      <div class="contenido-columna" :class="{ 'desactivado': mostrarModalActa }">
+        
+        <header>
+          <img class="profile-picture" src="arbitra.jpeg" alt="Foto de l'àrbitra" style="height: 40vh;">
+          <div>
+            <h1>Informació de l'àrbitre</h1>
+            <p>Nom: María González Pérez</p>
+            <p>Edat: 35 años</p>
+            <p>Nacionalitat: Espanyola</p>
+            <p>Comitè d'àrbitres: Madrid</p>
+            <button @click="logOut">Sortir</button>
+          </div>
+      </header>
+      <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <div v-for="(partit, index) in partits" :key="index" :class="['carousel-item', { 'active': index === partitSeleccionat }]">
+            <div class="card" style="background-color:#c2ddff; height: 60vh; display: flex; align-items: center;">
+              <div class="card-body" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                <h1 class="card-title">
+                  <img :src="partit.escutLocal" style="max-width: 10vh;"> {{ partit.local }} - {{ partit.visitant }}<img :src="partit.escutVisitant" style="max-width: 10vh;">
+                </h1>
+                <p class="card-text">Jornada {{ partit.jornada }}</p>
+                <p class="card-text">Data: {{ partit.data }}</p>
+                <p class="card-text">Camp: {{ partit.camp }}</p>
+                <p class="card-text">TV: {{ partit.tv }}</p>
+                <button class="btn btn-primary" @click="mostrarActa(index)">Acta</button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </a>
+      </div>
+        
     </div>
-
   </body>
-</html>
-
-
+  </html>

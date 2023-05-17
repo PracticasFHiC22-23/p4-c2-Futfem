@@ -2,20 +2,82 @@ const app = Vue.createApp({
     data() {
       return {
         jugadores: Array(23).fill().map(() => ({ dorsal: null, nom: null,groga:false,segonaGroga:false,vermella:false })),
-    titularsLocal: [],
-    suplentsLocal: [],
-    titularsVisitant: [],
-    suplentsVisitant:[],
-    mostrarModal: false,
-    equipSeleccionat: '',
-    golsLocal: [],
-    golsVisitant: [],
-    mostrarModalGols: false,
-    gols:[]
+        titularsLocal: [],
+        suplentsLocal: [],
+        titularsVisitant: [],
+        suplentsVisitant:[],
+        mostrarModal: false,
+        equipSeleccionat: '',
+        golsLocal: [],
+        golsVisitant: [],
+        mostrarModalGols: false,
+        mostrarModalActa:false,
+        gols:[],
+        partits: [
+            {
+              local: 'UDG Tenerife',
+              escutLocal: 'escuts/granadilla.png',
+              visitant: 'Sevilla FC',
+              escutVisitant: 'escuts/sevilla.png',
+              jornada: '29',
+              data: '14 de mayo de 2023',
+              camp: 'Campo de Fútbol Municipal La Palmera',
+              tv: 'DAZN',
+              arbitre: 'María González Pérez'
 
-      };
+            },
+            {
+              local: 'FC Levante Las Planas',
+              escutLocal: 'escuts/levante las planas.png',
+              visitant: 'Real Sociedad',
+              escutVisitant: 'escuts/real-sociedad.png',
+              jornada: '29',
+              data: '13 de mayo de 2023',
+              camp: 'Campo de Fútbol Les Planes',
+              tv: 'DAZN',
+              arbitre: 'María González Pérez'
+
+            },   {
+              local: 'FC Barcelona',
+              escutLocal: 'escuts/fc-barcelona-femenino.png',
+              visitant: 'Athletic Club',
+              escutVisitant: 'escuts/athletic-femenino.png',
+              jornada: '29',
+              data: '13 de mayo de 2023',
+              camp: 'Estadio Johan Cruyff',
+              tv: 'DAZN',   
+              arbitre: 'María González Pérez'
+
+            },    ],
+            partitSeleccionat: 0,
+            local:'',
+            escutLocal: '',
+            visitant: '',
+            escutVisitant: '',
+            jornada: '',
+              data: '',
+              camp: '',
+              tv: ''
+
+          };
     },
     methods: {
+      logOut(){
+        window.location.href="iniciSessio.html"
+      },
+      mostrarActa(index){
+        this.mostrarModalActa = true;
+        this.local = this.partits[index].local;
+        this.escutLocal = this.partits[index].escutLocal;
+        this.visitant = this.partits[index].visitant;
+        this.escutVisitant = this.partits[index].escutVisitant;
+        this.jornada = this.partits[index].jornada;
+        this.data = this.partits[index].data;
+        this.camp = this.partits[index].camp;
+        this.tv = this.partits[index].tv;
+        this.arbitre = this.partits[index].arbitre;
+
+      },
       mostrarFormulari(equip) {
         this.mostrarModal = true;
         this.equipSeleccionat = equip;
@@ -59,7 +121,6 @@ const app = Vue.createApp({
       
         this.tancarFormulariGols();
       },
-      
       
       tancarFormulariGols() {
         this.mostrarModalGols = false;
