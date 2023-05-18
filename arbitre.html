@@ -16,11 +16,18 @@
     <div id="app">
       <div v-if="mostrarModalActa">
         <header>
-          <h1><img :src="escutLocal" style="max-width: 10vh;"> {{ local }} - {{ visitant }}<img :src="escutVisitant" style="max-width: 10vh;"></h1>
+          <div class="container">
+            <h1 class="partido">
+              <img :src="escutLocal" style="max-width: 10vh;">
+              {{ local }} - {{ visitant }}
+              <img :src="escutVisitant" style="max-width: 10vh;">
+            </h1>
             <p>Jornada: {{ jornada }}</p>
             <p>Data: {{ data }}</p>
             <p>Estadi: {{ camp }}</p>
             <p>TV: {{ tv }}</p>
+          </div>
+          
         </header>
             <div class="columna">
                 <div class="contenido-columna" :class="{ 'desactivado': mostrarModal || mostrarModalGols }">
@@ -65,10 +72,10 @@
                       <form id="login" @submit.prevent="afegirJugadora">
                         <div v-for="(jugadora, index) in jugadores" :key="index" class="fila">
                           <div class="columna">
-                            <input style="margin-top: 4vh;" type="text" name="dorsal" placeholder="Dorsal" v-model="jugadora.dorsal" required>
+                            <input style="margin-top: 4vh;" type="text" name="dorsal" placeholder="Dorsal" v-model="jugadora.dorsal">
                           </div>
                           <div class="columna">
-                            <input style="margin-top: 4vh;" type="text" name="nom" placeholder="Nom" v-model="jugadora.nom" required>
+                            <input style="margin-top: 4vh;" type="text" name="nom" placeholder="Nom" v-model="jugadora.nom">
                           </div>
                           <div class="columna">
                             <label>
@@ -149,11 +156,16 @@
                       <from id = "afegir">
                         <button @click="mostrarFormulariGols">Afegir gols</button>
                       </from>
+                      <div id = "afegir">
+                        <a href="arbitre.html">Tornar</a>
+                      </div>
                 </div>
               </div>          
               <div class="columna">
                 <div class="contenido-columna" :class="{ 'desactivado': mostrarModal || mostrarModalGols }">
+                  <div class = "tituloActa">
                     <h2>Titulars</h2>
+                  </div>
                     <table>
                         <tbody>
                           <tr v-for="jugadora in titularsVisitant" :key="jugadora.dorsal">
@@ -165,7 +177,9 @@
                           </tr>
                         </tbody>
                       </table>
-                      <h2>Suplents</h2>
+                      <div class = "tituloActa">
+                        <h2>Suplents</h2>
+                      </div>
                       <table>
                         <tbody>
                           <tr v-for="jugadora in suplentsVisitant" :key="jugadora.dorsal">
@@ -180,25 +194,26 @@
                       <from id = "afegir">
                         <button type="submit" title = "Afegir alineació visitant" name = "Afegir" @click="mostrarFormulari('visitant')">Afegir alineació visitant</button>
                       </from>
-                      <div class = "inferior">
-                        <a href="arbitre.html">Tornar</a>
-                      </div>
+                      
                 </div>
             </div>
       </div> 
       <div class="contenido-columna" :class="{ 'desactivado': mostrarModalActa }">
         
         <header>
-          <img class="profile-picture" src="arbitra.jpeg" alt="Foto de l'àrbitra" style="height: 40vh;">
-          <div>
+          <div class="profile-container">
+            <img class="profile-picture" src="arbitra.jpeg" alt="Foto de l'àrbitra">
+          </div>
+          <div class="info-container">
             <h1>Informació de l'àrbitre</h1>
             <p>Nom: María González Pérez</p>
             <p>Edat: 35 años</p>
             <p>Nacionalitat: Espanyola</p>
             <p>Comitè d'àrbitres: Madrid</p>
-            <button @click="logOut">Sortir</button>
+            <button class="btn btn-danger" style="width: 100%;" @click="logOut">Sortir</button>
           </div>
-      </header>
+        </header>
+        
       <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
           <div v-for="(partit, index) in partits" :key="index" :class="['carousel-item', { 'active': index === partitSeleccionat }]">
@@ -211,7 +226,7 @@
                 <p class="card-text">Data: {{ partit.data }}</p>
                 <p class="card-text">Camp: {{ partit.camp }}</p>
                 <p class="card-text">TV: {{ partit.tv }}</p>
-                <button class="btn btn-primary" @click="mostrarActa(index)">Acta</button>
+                <button class="btn btn-primary"style="width: 100%;"  @click="mostrarActa(index)">Acta</button>
               </div>
             </div>
           </div>
@@ -225,8 +240,6 @@
           <span class="carousel-control-next-icon" aria-hidden="true"></span>
           <span class="visually-hidden">Next</span>
         </a>
-      </div>
-        
     </div>
   </body>
   </html>
