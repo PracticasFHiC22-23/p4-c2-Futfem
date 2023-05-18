@@ -8,6 +8,7 @@ header {
   flex-wrap: wrap;
 }
 
+
 body {
   overflow-x: hidden;
   height: fit-content;
@@ -19,6 +20,31 @@ body {
   justify-content: center;
   
 }
+
+.escut {
+  position: relative;
+  display: inline-block;
+}
+
+.botonEscudo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: transparent;
+  border: none;
+  color: #ffffff;
+  font-size: 16px;
+  padding: 10px 20px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.escudo:hover .botonEscudo {
+  opacity: 1;
+}
+
 .navbar {
     height:10vh;
    background-color: #c2ddff;
@@ -245,3 +271,65 @@ margin-bottom: 3px;
 .inferior a:hover {
 color: #3282b8;
 }
+
+.barcelona-header {
+  background: linear-gradient(135deg, rgba(176, 2, 46, 0.8) 0%, rgba(0, 156, 225, 0.8) 100%),
+              linear-gradient(45deg, rgba(0, 156, 225, 0.8) 0%, rgba(176, 2, 46, 0.8) 100%);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  color: #FFF;
+}
+
+.logo-container {
+  width: 100px;
+  margin-right: 10px;
+}
+
+.logo-container img {
+  width: 100%;
+  height: auto;
+}
+
+.club-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.club-info h1 {
+  font-size: 40px;
+  margin: 0;
+
+}
+
+.club-info p {
+  font-size: 40px;
+  margin: 5px 0;
+
+}
+
+.jugadora-container {
+  display: flex;
+  align-items: center;
+}
+
+.jugadora-container img {
+  width: 110px;
+  height: auto;
+  margin-right: 10px;
+}
+
+.jugadora-info {
+  color: #333;
+}
+
+.jugadora-info h2 {
+  font-size: 24px;
+  margin: 0;
+}
+
+.jugadora-info p {
+  margin: 5px 0;
+}
+
