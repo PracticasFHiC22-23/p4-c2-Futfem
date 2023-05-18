@@ -4,6 +4,10 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
         <link href="style.css" rel="stylesheet">
         <title>Futfem</title>
       </head>
@@ -15,7 +19,10 @@
             <img src="escuts/Alhama el pozo.png" style="max-width: 10vh;">
             <img src="escuts/athletic-femenino.png" style="max-width:10vh;">
             <img src="escuts/atletico-feminas.png" style="max-width: 10vh;">
-            <img src="escuts/fc-barcelona-femenino.png" style="max-width: 10vh;">
+            <div class = 'escut'>
+              <img src="escuts/fc-barcelona-femenino.png" style="max-width: 10vh;">
+              <a href="barcelona.html" class="botonEscudo">Boton</a>
+            </div>
             <img src="escuts/betis.png" style="max-width: 10vh;">
             <img src="escuts/granadilla.png" style="max-width: 10vh;">
             <img src="escuts/levante las planas.png" style="max-width: 10vh;">
@@ -31,8 +38,8 @@
         <div class="container-fluid">
           <nav class="navbar">
             <a href="index.html">Inici</a>
-            <a href="#">Classificació</a>
-            <a class="nav-link" href="#">Resultats</a>
+            <a href="classificacio.html">Classificació</a>
+            <a class="nav-link" href="resultats.html">Resultats</a>
             <a class="nav-link" href="#">Jugadores</a>
             <a class="nav-link" href="#">Estadístiques</a>
             <a class="nav-link" href="#">Sancions</a>
@@ -52,11 +59,12 @@
           </div>
         </header>
         <div class="row">
-            <div class="columna">
-              <h2 style="text-align: center;">Plantilla</h2>
-              <table>
-                <thead>
-                    <div class="jugadora-container">
+          <div class="columna">
+            <h2 style="text-align: center;">Plantilla</h2>
+            <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+              <div class="carousel-inner">
+                <div class="carousel-item active">
+                      <div class="jugadora-container card">
                         <img src="jugadores/paños.jpg" alt="Foto de Sandra Paños">
                         <div class="jugadora-info">
                           <h2>Sandra Paños</h2>
@@ -64,8 +72,9 @@
                           <p>Pes: 65 kg</p>
                           <p>Altura: 1.69 m</p>
                         </div>
-                    </div>       
-                    <div class="jugadora-container">
+                      </div>
+
+                      <div class="jugadora-container card">
                         <img src="jugadores/catacoll.jpg" alt="Foto Cata Coll">
                         <div class="jugadora-info">
                           <h2>Cata Coll</h2>
@@ -73,8 +82,10 @@
                           <p>Pes: 68 kg</p>
                           <p>Altura: 1.70 m</p>
                         </div>
-                    </div> 
-                    <div class="jugadora-container">
+                      </div>
+                    
+
+                      <div class="jugadora-container card">
                         <img src="jugadores/gemmafont.jpg" alt="Foto de Gemma Font">
                         <div class="jugadora-info">
                           <h2>Gemma Font</h2>
@@ -82,10 +93,49 @@
                           <p>Pes: 60 kg</p>
                           <p>Altura: 1.65 m</p>
                         </div>
-                    </div>                
-                </thead>
-              </table>
+                    </div>
+                  </div>
+                <div class="carousel-item">
+                      <div class="jugadora-container card">
+                        <img src="jugadores/marta.jpg" alt="Foto de Marta Torrejon">
+                        <div class="jugadora-info">
+                          <h2>Marta Torrejon</h2>
+                          <p>Data de naixement: 27/02/1990</p>
+                          <p>Pes: 62 kg</p>
+                          <p>Altura: 1.71 m</p>
+                        </div>
+                      </div>
+                      <div class="jugadora-container card">
+                        <img src="jugadores/mapi.jpg" alt="Foto Mapi León">
+                        <div class="jugadora-info">
+                          <h2> Mapi León</h2>
+                          <p>Data de naixement: 13/06/1995</p>
+                          <p>Pes: 61 kg</p>
+                          <p>Altura: 1.69 m</p>
+                        </div>
+                      </div>
+                      <div class="jugadora-container card">
+                        <img src="jugadores/lucy.jpg" alt="Foto de Lucy Bronze">
+                        <div class="jugadora-info">
+                          <h2>Lucy Bronze</h2>
+                          <p>Data de naixement: 28/10/1991</p>
+                          <p>Pes: 61 kg</p>
+                          <p>Altura: 1.71 m</p>
+                        </div>
+                      </div>
+
+                  </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </button>
             </div>
+          </div></div>
+          
             <div class="columna" >
               <h2 style="text-align: center;">Classificació</h2>
               <table>
